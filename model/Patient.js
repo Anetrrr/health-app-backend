@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const usersSchema = new Schema({
+const patientSchema = new Schema({
     firstname: {
         type: String,
         required: true
@@ -20,7 +20,11 @@ const usersSchema = new Schema({
         lowercase: true,
         required: true
     },
-    role: {},
+    country: String,
+    state: String,
+    city: String,
+    gender: String,
+    dob: Date,
     password: {
         type: String,
         required: true
@@ -37,4 +41,4 @@ const usersSchema = new Schema({
     refreshToken: String
 });
 
-module.exports = mongoose.model('Users', usersSchema);
+module.exports = mongoose.model('Users', patientSchema);

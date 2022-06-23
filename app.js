@@ -17,20 +17,19 @@ var app = express();
 // custom middleware logger
 app.use(logger);
 
-
-
-app.use(cors(corsOptions))
+// app.use(cors(corsOptions))
+app.use(cors())
 
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
 //serve static files
 app.use('/', express.static(path.join(__dirname, '/public')));
 
-app.use('/auth',  require('./routes/auth'));
-
-
+// app.use('/auth', require('./routes/auth'));
+app.use('/patient', require('./routes/patient'));
 
 app.all('*', (req, res) => {
     res.status(404);

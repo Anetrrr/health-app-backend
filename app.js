@@ -26,9 +26,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 //serve static files
-app.use('/', express.static(path.join(__dirname, '/public')));
+// app.use('/', express.static(path.join(__dirname, '/public')));
 
 // app.use('/auth', require('./routes/auth'));
+
+app.use('/', require('./routes/index'));
 app.use('/patient', require('./routes/patient'));
 
 app.all('*', (req, res) => {
@@ -47,8 +49,6 @@ app.use(errorHandler);
 mongoose.connection.once('open', () => {
     console.log('Connected to MongoDB');
 });
- 
-module.exports = app;
 
 module.exports = app;
 

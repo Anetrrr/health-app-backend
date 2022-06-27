@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const patientController = require('../controllers/patientController');
+const { newPatientHandler, getAllPatient, getPatient, updatePassword, updatePatient } = require('../controllers/patientController');
 
-router.post('/', patientController.newPatientHandler);
-router.get('/', patientController.getAllPatient);
-router.put('/', patientController.updatePatient);
-
-
-
+router.post('/', newPatientHandler)
+    .get('/', getAllPatient)
+    .get('/:id', getPatient)
+    .put('/:id', updatePatient)
+    .patch('/update_password', updatePassword);
 
 module.exports = router;
+

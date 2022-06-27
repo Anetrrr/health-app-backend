@@ -10,21 +10,12 @@ const patientSchema = new Schema({
         type: String,
         required: true
     }, 
-    phonenumber: {
-        type: Number,
-        required: true
-    },
     email: {
         type: String,
         minlength: 6,
         lowercase: true,
         required: true
     },
-    country: String,
-    state: String,
-    city: String,
-    gender: String,
-    dob: Date,
     password: {
         type: String,
         required: true

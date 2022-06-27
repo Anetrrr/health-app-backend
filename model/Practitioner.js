@@ -14,6 +14,10 @@ const patientSchema = new Schema({
         type: Number,
         required: true
     },
+    password: {
+        type: String,
+        reuqired: true
+    },
     email: {
         type: String,
         minlength: 6,

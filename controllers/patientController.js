@@ -16,10 +16,10 @@ const newPatientHandler = async (req, res) => {
         validationErrors.firstname = 'Firstname is required.';
     if (!lastname)
         validationErrors.lastname = 'Lastname is required.';
-    if (!phonenumber)
-        validationErrors.phonenumber = 'Phone Number is required.';
-    if (phonenumber && !/^(0|[1-9][0-9]{0,2}(?:(,[0-9]{3})*|[0-9]*))(\.[0-9]+){0,1}$/.test(Number(phonenumber)))
-        validationErrors.phonenumber = 'Phone number should be an integer.';
+    // if (!phonenumber)
+    //     validationErrors.phonenumber = 'Phone Number is required.';
+    // if (phonenumber && !/^(0|[1-9][0-9]{0,2}(?:(,[0-9]{3})*|[0-9]*))(\.[0-9]+){0,1}$/.test(Number(phonenumber)))
+    //     validationErrors.phonenumber = 'Phone number should be an integer.';
     if (!email)
         validationErrors.email = 'Email is required.';
     if (!password)
@@ -28,26 +28,24 @@ const newPatientHandler = async (req, res) => {
         validationErrors.confirm_password = 'Confirm Password is required.';
     if (password !== confirm_password)
         validationErrors.password_mismatch = 'Passowrd and Confirm Password do not match.'; 
-    if (!country)
-        validationErrors.country = 'Country is required.';
-    if (!state)
-        validationErrors.state = 'State is required.';
-    if (!city)
-        validationErrors.city = 'City is required.';
-    if (!gender)
-        validationErrors.gender = 'Gender is required.';
-    if (!dob)
-        validationErrors.dob = 'Date Of Birth is required.';
+    // if (!country)
+    //     validationErrors.country = 'Country is required.';
+    // if (!state)
+    //     validationErrors.state = 'State is required.';
+    // if (!city)
+    //     validationErrors.city = 'City is required.';
+    // if (!gender)
+    //     validationErrors.gender = 'Gender is required.';
+    // if (!dob)
+    //     validationErrors.dob = 'Date Of Birth is required.';
     
     if (Object.keys(validationErrors).length > 0)
-        return res.status(400).json({ 'validation_error': validationErrors }); 
+        return res.status(400).json({ 'validation_error': {validationErrors} }); 
  
 
 
     // check for duplicate usernames in the db
-    const duplicate = await Patient.findOne({
-        $or: [{ email }, {phonenumber} ]
-    }).exec();
+    const duplicate = await Patient.findOne({ email }).exec();
     if (duplicate) return res.sendStatus(409); //Conflict 
 
     try {

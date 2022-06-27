@@ -7,15 +7,16 @@ const getAllPractitioner= async (req, res) => {
     res.json(patient);
 }
 
+
 const newPractitionerHandler = async (req, res) => {
-    const { name, lastname, phonenumber, email, country, state, city, gender, dob, password, confirm_password } = req.body;
+    const { name, address, phonenumber, password, confirm_password, email, country, state, city, contact_person } = req.body;
 
     const validationErrors = {};
 
-    if (!firstname)
-        validationErrors.firstname = 'Firstname is required.';
-    if (!lastname)
-        validationErrors.lastname = 'Lastname is required.';
+    if (!name)
+        validationErrors.name = 'Name is required.';
+    if (!address)
+        validationErrors.address = 'Address is required.';
     if (!phonenumber)
         validationErrors.phonenumber = 'Phone Number is required.';
     if (phonenumber && !/^(0|[1-9][0-9]{0,2}(?:(,[0-9]{3})*|[0-9]*))(\.[0-9]+){0,1}$/.test(Number(phonenumber)))
@@ -34,11 +35,9 @@ const newPractitionerHandler = async (req, res) => {
         validationErrors.state = 'State is required.';
     if (!city)
         validationErrors.city = 'City is required.';
-    if (!gender)
-        validationErrors.gender = 'Gender is required.';
-    if (!dob)
-        validationErrors.dob = 'Date Of Birth is required.';
-    
+    if (!contact_person)
+        validationErrors.contact_person = 'Contact Person is required.';
+ 
     if (Object.keys(validationErrors).length > 0)
         return res.status(400).json({ 'validation_error': validationErrors }); 
  
@@ -74,15 +73,15 @@ const updatePractitioner= async (req, res) => {
     if (!owner) {
         return res.status(204).json({ "message": `No owner matches ID ${req.body.id}.` });
     }
-    if (req.body?.firstname) owner.firstname = req.body.firstname;
-    if (req.body?.lastname) owner.lastname = req.body.lastname;
+    if (req.body?.name) owner.name = req.body.name;
+    if (req.body?.address) owner.address = req.body.address;
     if (req.body?.phonenumber) owner.phonenumber = req.body.phonenumber;
     if (req.body?.email) owner.email = req.body.email;
     if (req.body?.country) owner.country = req.body.country;
     if (req.body?.state) owner.state = req.body.state;
     if (req.body?.city) owner.city = req.body.city;
-    if (req.body?.gender) owner.gender = req.body.gender;
-    if (req.body?.dob) owner.dob = req.body.dob;
+    if (req.body?.contact_person) owner.contact_person = req.body.contact_person;
+
     const result = await owner.save();
     res.json(result);
 }
@@ -132,7 +131,5 @@ const getPractitioner= async (req, res) => {
     }
     res.json(owner);
 }
-
-
 
 module.exports = { newPractitionerHandler, getAllPractitioner, getPractitioner, updatePassword, updatePractitioner, deletePractitioner};
